@@ -1,0 +1,6 @@
+# robots.txt for Lakshya Sharma Portfolio
+User-agent: *
+Allow: /
+
+# Sitemap — update the URL below when your domain is configured
+# Sitemap: https://your-domain.vercel.app/sitemap.xml
