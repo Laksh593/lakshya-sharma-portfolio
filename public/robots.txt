@@ -2,5 +2,5 @@
 User-agent: *
 Allow: /
 
-# Sitemap — update the URL below when your domain is configured
-# Sitemap: https://your-domain.vercel.app/sitemap.xml
+# Sitemap
+Sitemap: https://lakshya-ai-ml-portfolio.vercel.app/sitemap.xml
