@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Education from './components/Education';
-import Achievements from './components/Achievements';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import { RouterProvider } from './router/RouterContext';
+import { useRouter } from './router/context';
+import { usePageMetadata } from './utils/seo';
+import LandingPage from './pages/LandingPage';
+import FullStackPortfolio from './pages/FullStackPortfolio';
+import AiMlPortfolio from './pages/AiMlPortfolio';
 
-
-export default function App() {
+function AppContent() {
+  const { currentRoute } = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+
+  // Sync title and SEO metadata on route change
+  usePageMetadata(currentRoute);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -30,9 +30,9 @@ export default function App() {
     return () => window.removeEventListener('mousemove', updateMousePosition);
   }, []);
 
-  // Track hover on interactive elements globally
+  // Track hover on interactive elements globally for the custom cursor glow
   useEffect(() => {
-    const interactiveSelectors = 'a, button, .glass-card';
+    const interactiveSelectors = 'a, button, .glass-card, [role="button"]';
     const handleMouseEnter = () => setIsHovering(true);
     const handleMouseLeave = () => setIsHovering(false);
 
@@ -49,6 +49,19 @@ export default function App() {
       });
     };
   });
+
+  // Render active page based on current route
+  const renderPage = () => {
+    switch (currentRoute) {
+      case '/full-stack':
+        return <FullStackPortfolio isScrolled={isScrolled} />;
+      case '/ai-ml':
+        return <AiMlPortfolio isScrolled={isScrolled} />;
+      case '/':
+      default:
+        return <LandingPage />;
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -73,19 +86,15 @@ export default function App() {
         }}
       />
 
-      <Navbar isScrolled={isScrolled} />
-
-      <main className="max-w-7xl mx-auto px-6 md:px-12">
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Education />
-        <Achievements />
-        <Contact />
-      </main>
-
-      <Footer />
+      {renderPage()}
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <RouterProvider>
+      <AppContent />
+    </RouterProvider>
   );
 }

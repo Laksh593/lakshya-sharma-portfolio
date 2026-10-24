@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { aboutData, projectsData } from '../data/portfolio';
+import { aboutData as defaultAboutData, projectsData as defaultProjectsData } from '../data/portfolio';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 50 },
@@ -11,11 +11,15 @@ const staggerContainer = {
   visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
 };
 
-const About = () => {
-  // Dynamically compute stats, ensuring "Featured Projects" reflects projectsData.length
-  const stats = aboutData.stats.map((stat) =>
+const About = ({ 
+  data = defaultAboutData, 
+  projectCount = defaultProjectsData.length,
+  sectionNumber = "01."
+}) => {
+  // Dynamically compute stats, ensuring "Featured Projects" reflects project count
+  const stats = data.stats.map((stat) =>
     stat.label === 'Featured Projects'
-      ? { ...stat, value: `${projectsData.length}` }
+      ? { ...stat, value: `${projectCount}` }
       : stat
   );
 
@@ -30,7 +34,7 @@ const About = () => {
     >
       <div className="flex items-center gap-4 mb-12">
         <h2 className="text-3xl md:text-4xl font-bold">
-          <span className="gradient-text">01.</span> About Me
+          <span className="gradient-text">{sectionNumber}</span> About Me
         </h2>
         <div className="h-[1px] flex-1 bg-glass-border" />
       </div>
@@ -38,7 +42,7 @@ const About = () => {
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <motion.div variants={fadeIn} className="glass-card">
           <div className="space-y-4 text-gray-300">
-            {aboutData.paragraphs.map((paragraph, i) => (
+            {data.paragraphs.map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
             ))}
           </div>

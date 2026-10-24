@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { skillsData, iconMap } from '../data/portfolio';
+import { skillsData as defaultSkillsData, iconMap as defaultIconMap } from '../data/portfolio';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 50 },
@@ -11,7 +11,12 @@ const staggerContainer = {
   visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
 };
 
-const Skills = () => {
+const Skills = ({ 
+  skills = defaultSkillsData, 
+  icons = defaultIconMap, 
+  sectionNumber = "02.",
+  title = "Technical Arsenal"
+}) => {
   return (
     <motion.section
       id="skills"
@@ -23,14 +28,14 @@ const Skills = () => {
     >
       <div className="flex items-center gap-4 mb-12">
         <h2 className="text-3xl md:text-4xl font-bold">
-          <span className="gradient-text">02.</span> Technical Arsenal
+          <span className="gradient-text">{sectionNumber}</span> {title}
         </h2>
         <div className="h-[1px] flex-1 bg-glass-border" />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {skillsData.map((category, idx) => {
-          const IconComponent = iconMap[category.iconName];
+        {skills.map((category, idx) => {
+          const IconComponent = icons[category.iconName];
           return (
             <motion.div
               key={idx}

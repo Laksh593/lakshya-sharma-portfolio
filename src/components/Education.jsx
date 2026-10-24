@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { GraduationCap } from 'lucide-react';
-import { educationData } from '../data/portfolio';
+import { educationData as defaultEducationData } from '../data/portfolio';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 50 },
@@ -12,7 +12,11 @@ const staggerContainer = {
   visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
 };
 
-const Education = () => {
+const Education = ({ 
+  education = defaultEducationData, 
+  sectionNumber = "04.",
+  title = "Education" 
+}) => {
   return (
     <motion.section
       id="education"
@@ -24,7 +28,7 @@ const Education = () => {
     >
       <div className="flex items-center gap-4 mb-12">
         <h2 className="text-3xl md:text-4xl font-bold">
-          <span className="gradient-text">04.</span> Education
+          <span className="gradient-text">{sectionNumber}</span> {title}
         </h2>
         <div className="h-[1px] flex-1 bg-glass-border" />
       </div>
@@ -34,7 +38,7 @@ const Education = () => {
           <GraduationCap className="text-primary-purple" /> Academic Background
         </h3>
         <div className="space-y-8 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-glass-border before:to-transparent">
-          {educationData.map((item, idx) => (
+          {education.map((item, idx) => (
             <motion.div
               key={idx}
               variants={fadeIn}

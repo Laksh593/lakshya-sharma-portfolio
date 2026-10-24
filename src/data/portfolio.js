@@ -260,5 +260,23 @@ export const extracurricularsData = [
   },
 ];
 
+// ─── Experience (Academic Project Internships) ───────────────────
+export const experienceData = [
+  {
+    role: 'MCA Academic Project Intern',
+    period: 'January 2026 – May 2026',
+    badge: 'Supervised Academic Internship',
+    context: 'Academic Internship & MCA Dissertation under Faculty Supervision',
+    institution: 'Vellore Institute of Technology (VIT), Chennai',
+  },
+  {
+    role: 'MCA Academic Project Intern',
+    period: 'July 2025 – December 2025',
+    badge: 'Supervised Academic Internship',
+    context: 'Academic Internship & MCA Dissertation under Faculty Supervision',
+    institution: 'Vellore Institute of Technology (VIT), Chennai',
+  },
+];
+
 // ─── Navigation ────────────────────────────────────────────────
-export const navItems = ['About', 'Skills', 'Projects', 'Education', 'Achievements'];
+export const navItems = ['About', 'Skills', 'Projects', 'Experience', 'Education', 'Achievements'];

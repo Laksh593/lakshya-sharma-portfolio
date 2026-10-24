@@ -12,19 +12,25 @@ const staggerContainer = {
   visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
 };
 
-const Achievements = () => {
+const Achievements = ({ 
+  achievements = achievementsData,
+  certifications = certificationsData,
+  sectionNumber = "06." 
+}) => {
   return (
     <motion.section
       id="achievements"
-      className="py-24"
+      className="py-24 relative"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
       variants={staggerContainer}
     >
+      <div id="certifications" className="absolute -top-24 pointer-events-none" />
+
       <div className="flex items-center gap-4 mb-12">
         <h2 className="text-3xl md:text-4xl font-bold">
-          <span className="gradient-text">05.</span> Achievements &amp; Certifications
+          <span className="gradient-text">{sectionNumber}</span> Achievements &amp; Certifications
         </h2>
         <div className="h-[1px] flex-1 bg-glass-border" />
       </div>
@@ -36,7 +42,7 @@ const Achievements = () => {
             <Trophy className="text-primary-purple" size={24} /> Achievements
           </h3>
           <div className="grid gap-4">
-            {achievementsData.map((item, idx) => (
+            {achievements.map((item, idx) => (
               <motion.div
                 key={idx}
                 variants={fadeIn}
@@ -70,7 +76,7 @@ const Achievements = () => {
             <Award className="text-primary-purple" size={24} /> Certifications
           </h3>
           <div className="grid gap-4">
-            {certificationsData.map((cert, idx) => (
+            {certifications.map((cert, idx) => (
               <motion.div
                 key={idx}
                 variants={fadeIn}
@@ -78,6 +84,11 @@ const Achievements = () => {
               >
                 <Award className="text-primary-cyan flex-shrink-0" size={20} />
                 <div>
+                  {cert.category && (
+                    <span className="text-[10px] font-mono text-purple-400 uppercase tracking-wider block mb-0.5">
+                      {cert.category}
+                    </span>
+                  )}
                   <h4 className="font-bold text-[15px]">{cert.title}</h4>
                   <p className="text-gray-400 text-sm">{cert.org}</p>
                 </div>

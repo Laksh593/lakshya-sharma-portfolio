@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Mail, Phone, Send } from 'lucide-react';
-import { personalInfo } from '../data/portfolio';
+import { personalInfo as defaultPersonalInfo } from '../data/portfolio';
 import { GithubIcon, LinkedinIcon } from './Hero';
 
 const fadeIn = {
@@ -13,7 +13,15 @@ const staggerContainer = {
   visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
 };
 
-const Contact = () => {
+const Contact = ({ 
+  personal = defaultPersonalInfo,
+  role = 'aiml',
+  subtext
+}) => {
+  const defaultSubtext = role === 'fullstack'
+    ? "Let's build scalable web applications and robust backend systems. I'm open to opportunities in Full Stack Software Engineering, REST APIs, backend development, and cloud services."
+    : "Let's build intelligent systems that solve real-world problems. I'm open to opportunities in AI/ML, GenAI, Python backend, and machine learning engineering.";
+
   return (
     <motion.section
       id="contact"
@@ -27,14 +35,14 @@ const Contact = () => {
         <div className="font-mono text-primary-cyan mb-4">What&apos;s Next?</div>
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8">Get In Touch</h2>
         <p className="text-gray-400 text-base sm:text-lg mb-12 max-w-xl mx-auto leading-relaxed">
-          Let&apos;s build intelligent systems that solve real-world problems. I&apos;m
-          open to opportunities in AI/ML, GenAI, Python backend, and machine
-          learning engineering.
+          {subtext || defaultSubtext}
         </p>
 
         <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mb-12">
           <a
-            href={`mailto:${personalInfo.email}`}
+            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(personal.email)}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-primary text-base sm:text-lg px-8 py-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-cyan"
           >
             Say Hello <Send size={20} />
@@ -44,7 +52,9 @@ const Contact = () => {
         {/* Contact Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
           <a
-            href={`mailto:${personalInfo.email}`}
+            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(personal.email)}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="glass-card p-5 flex items-center gap-4 text-left hover:border-primary-cyan/30 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-cyan"
           >
             <div className="w-10 h-10 rounded-full bg-[rgba(138,43,226,0.15)] flex items-center justify-center flex-shrink-0">
@@ -52,12 +62,12 @@ const Contact = () => {
             </div>
             <div className="min-w-0">
               <p className="text-xs font-mono text-gray-500 mb-0.5">Email</p>
-              <p className="text-gray-300 text-sm font-medium break-all sm:break-normal">{personalInfo.email}</p>
+              <p className="text-gray-300 text-sm font-medium break-all sm:break-normal">{personal.email}</p>
             </div>
           </a>
 
           <a
-            href={`tel:${personalInfo.phone}`}
+            href={`tel:${personal.phone}`}
             className="glass-card p-5 flex items-center gap-4 text-left hover:border-primary-cyan/30 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-cyan"
           >
             <div className="w-10 h-10 rounded-full bg-[rgba(138,43,226,0.15)] flex items-center justify-center flex-shrink-0">
@@ -65,12 +75,12 @@ const Contact = () => {
             </div>
             <div className="min-w-0">
               <p className="text-xs font-mono text-gray-500 mb-0.5">Phone</p>
-              <p className="text-gray-300 text-sm font-medium">{personalInfo.phoneDisplay}</p>
+              <p className="text-gray-300 text-sm font-medium">{personal.phoneDisplay}</p>
             </div>
           </a>
 
           <a
-            href={personalInfo.linkedIn}
+            href={personal.linkedIn}
             target="_blank"
             rel="noopener noreferrer"
             className="glass-card p-5 flex items-center gap-4 text-left hover:border-primary-cyan/30 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-cyan"
@@ -86,7 +96,7 @@ const Contact = () => {
           </a>
 
           <a
-            href={personalInfo.github}
+            href={personal.github}
             target="_blank"
             rel="noopener noreferrer"
             className="glass-card p-5 flex items-center gap-4 text-left hover:border-primary-cyan/30 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-cyan"
